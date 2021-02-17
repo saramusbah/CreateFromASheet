@@ -1,0 +1,54 @@
+﻿@model SheetModel
+<h1>ImportData</h1>
+<br />
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        table-layout: fixed;
+        width: 400;
+    }
+</style>
+@if (Model != null)
+{
+    <p>Columns</p>
+    <table>
+        @foreach (var item in Model.Columns)
+        {
+            <tr>
+                <th>
+                    @item.Key
+                </th>
+                <td>
+                    @Html.ActionLink("Edit", "add", new { id = @item.Key }) |
+                    @Html.ActionLink("Drop", "Delete", new { id = @item.Key })
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    <br />
+    <table>
+        <tr>
+            @foreach (var item in Model.Columns)
+            {
+                <th>
+                    @item.Key
+                </th>
+            }
+        </tr>
+        <tr>
+            @foreach (var item in Model.Columns)
+            {
+                <td>
+                    @item.Value
+                </td>
+            }
+        </tr>
+
+    </table>
+    <br />
+    <p>
+        @Html.ActionLink("Save", "save")
+    </p>
+}
