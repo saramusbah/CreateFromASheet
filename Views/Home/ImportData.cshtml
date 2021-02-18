@@ -1,54 +1,43 @@
-﻿@model SheetModel
+﻿@model List<SheetModel>
 <h1>ImportData</h1>
 <br />
-
-<style>
-    table, th, td {
-        border: 1px solid black;
-        table-layout: fixed;
-        width: 400;
-    }
-</style>
-@if (Model != null)
+@if (Model != null && Model.Count > 0)
 {
-    <p>Columns</p>
+    <p>Columns detected</p>
     <table>
-        @foreach (var item in Model.Columns)
+        @foreach (var item in Model.First().Columns.Keys)
         {
             <tr>
-                <th>
-                    @item.Key
-                </th>
+                <th> @item.Replace("\"", "") </th>
                 <td>
-                    @Html.ActionLink("Edit", "add", new { id = @item.Key }) |
-                    @Html.ActionLink("Drop", "Delete", new { id = @item.Key })
+                    @Html.ActionLink("Edit", "Edit", new { id = @item }) |
+                    @Html.ActionLink("Drop", "Delete", new { id = @item })
                 </td>
             </tr>
         }
     </table>
     <br />
+    <p>
+        @Html.ActionLink("Save", "Save")
+    </p>
     <br />
+    <br />
+    <p>Data</p>
     <table>
         <tr>
-            @foreach (var item in Model.Columns)
+            @foreach (var item in Model.First().Columns.Keys)
             {
-                <th>
-                    @item.Key
-                </th>
+                <th>@item.Replace("\"", "")</th>
             }
         </tr>
-        <tr>
-            @foreach (var item in Model.Columns)
-            {
-                <td>
-                    @item.Value
-                </td>
-            }
-        </tr>
-
+        @foreach (var m in Model)
+        {
+            <tr>
+                @foreach (var item in m.Columns)
+                {
+                    <td>@item.Value.ToString().Replace("\"", "")</td>
+                }
+            </tr>
+        }
     </table>
-    <br />
-    <p>
-        @Html.ActionLink("Save", "save")
-    </p>
 }

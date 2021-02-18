@@ -4,6 +4,6 @@
 
     public class SheetModel
     {
-        public Dictionary<object, object> Columns { get; set; } = new Dictionary<object, object>();
+        public Dictionary<string, object> Columns { get; set; } = new Dictionary<string, object>();
     }
 }
